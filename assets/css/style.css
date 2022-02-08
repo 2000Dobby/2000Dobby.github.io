@@ -1,7 +1,7 @@
 :root {
-    --nav-link-color: rgba(255, 255, 255, .55);
+    --nav-link-color: #cecece;
     --nav-link-active-color: #ffffff;
-    --navbar-color: #737373;
+    --navbar-color: #4f575f;
     --font-color: #ffffff;
     --background-color: #353a40;
     --scrollbar-track-color: #333333;
@@ -12,6 +12,8 @@
     --font-weight: 500;
     --font: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,
                           "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+
+    --anim-bounce: cubic-bezier(0.52, 2, 0.37, 0.16);
 
     --footer-height: 3rem;
 }
@@ -39,6 +41,14 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+
+    user-select: none; 
+    -webkit-touch-callout: none;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .wrapper-outer {
@@ -72,8 +82,6 @@ footer.footer-bottom {
     width: 90%;
     margin: 0 auto;
     max-width: 1200px;
-    user-select: none; 
-    -webkit-touch-callout: none;
     padding-bottom: 2vw;
 }
 
@@ -108,4 +116,84 @@ footer.footer-bottom {
 
 #top-back-button:hover {
     cursor: pointer;
+}
+
+.popup .popup-container {
+    opacity: 0%;
+    visibility: hidden;
+
+    z-index: 1050;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%) scale(.75);
+    -webkit-transform: translate(-50%, -50%) scale(.75);
+
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in, visibility 0.3s ease-in;
+}
+
+.popup.show .popup-container {
+    opacity: 100%;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    -webkit-transform: translate(-50%, -50%) scale(1);
+
+    transition: opacity 0.3s var(--anim-bounce), transform 0.3s var(--anim-bounce), visibility 0.3s var(--anim-bounce);
+}
+
+.popup-content {
+    width: 70vw;
+    max-width: 500px;
+    padding: 1rem 1rem;
+
+    background-color: #333333;
+    border-radius: 10px;
+    border: 5px solid #a12232;
+    text-align: center;
+}
+
+.popup-icon {
+    color: #a12232; 
+    margin-right: .5rem;
+}
+
+.popup-dismiss {
+    color: var(--font-color);
+    background-color: #a12232;
+    cursor: pointer;
+    font-size: 1.2rem;
+
+    margin-top: 1rem;
+    padding: .75rem .75rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.popup-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: none;
+
+    transition: background .3s ease-in-out;
+}
+
+.popup-background.show {
+    background: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(10px);
+    display: block;
+
+    transition: background .3s ease-in-out;
+}
+
+#page-container {
+    z-index: 2;
+    text-align: center;
 }
