@@ -1,11 +1,11 @@
-const sitesURL = 'http://localhost/personal-homepage/sites/';
+const sitesURL = 'http://192.168.0.18/personal-homepage/sites/';
 const fileType = 'html';
 const timeoutAfter = 10000;
 
-var pageContainer = undefined;
-var popup = undefined;
-var popupBackground = undefined;
-var popupMessage = undefined;
+let pageContainer = undefined;
+let popup = undefined;
+let popupBackground = undefined;
+let popupMessage = undefined;
 
 $(function() {
     pageContainer = $('#page-container');
@@ -33,7 +33,7 @@ $('#top-back-button').on('click', function() {
     document.documentElement.scrollTop = 0;
 });
 
-$('.link-to').on('click', function () {
+$('body').on('click', '.link-to', function () {
     $('.navbar-link.active').removeClass('active');
 
     if ($(this).hasClass('.navbar-link')) {

@@ -57,7 +57,7 @@
 }
 
 .navbar-title-text {
-    color: var(--scrollbar-slider-color);
+    color: var(--font-color);
     margin: 0;
     font-size: 2rem;
     line-height: 1.2;
