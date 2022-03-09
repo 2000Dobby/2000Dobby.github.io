@@ -1,6 +1,4 @@
-import mapping from './mapping.js';
-
-const sitesURL = 'https://2000dobby.github.io/sites/';
+const sitesURL = /*'http://localhost/personal-homepage/sites/';//*/'https://2000dobby.github.io/sites/';
 const timeoutAfter = 10000;
 
 let pageContainer = undefined;
@@ -62,12 +60,6 @@ function loadPageContent(sitePath) {
         return;
     }
 
-    let siteMapping = mapping[sitePath];
-    if (typeof siteMapping === 'undefined') {
-        openPopup('Something went wrong, please try again later.');
-        return;
-    }
-
     hidePageContent(() => {
         let xhttp = new XMLHttpRequest();
         let timeout = setTimeout(function() {
@@ -83,7 +75,7 @@ function loadPageContent(sitePath) {
             clearTimeout(timeout);
             if (this.status === 200) {
                 replacePageContent(this.responseText);
-                showPageContent(() => setScrollable(siteMapping.scrollable));
+                showPageContent();
             } else {
                 showPageContent();
                 if (this.status == 404) {
@@ -94,7 +86,7 @@ function loadPageContent(sitePath) {
             }
         };     
 
-        xhttp.open('GET', sitesURL + siteMapping.file, true);
+        xhttp.open('GET', `${ sitesURL }${ sitePath }.html`, true);
         xhttp.send();
     });
 }
@@ -116,12 +108,4 @@ function openPopup(message) {
     popupMessage.html(message);
     popup.addClass('show');
     popupBackground.addClass('show');
-}
-
-function setScrollable(scrollable) {
-    if (scrollable) {
-        $('.wrapper-outer').css('height', 'auto');
-    } else {
-        $('.wrapper-outer').css('height', '100%');
-    }
 }

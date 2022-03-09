@@ -15,7 +15,7 @@
 
     --anim-bounce: cubic-bezier(0.52, 2, 0.37, 0.16);
 
-    --navbar-height: calc(100% - 4.025rem);
+    --container-height: calc(100vh - 7.025rem);
     --footer-height: 3rem;
 }
 
@@ -53,12 +53,11 @@ a {
 }
 
 .wrapper-outer {
-    height: 100%;
+    min-height: 100%;
 }
 
 .wrapper-inner {
     padding-bottom: var(--footer-height);
-    height: 100%;
 }
 
 footer.footer-bottom {
@@ -82,10 +81,11 @@ footer.footer-bottom {
     justify-content: center;
     align-items: center;
     width: 90%;
-    height: var(--navbar-height);
+    min-height: var(--container-height);
     margin: 0 auto;
     max-width: 800px;
     box-sizing: border-box;
+    display: flex;
 }
 
 ::-webkit-scrollbar {
