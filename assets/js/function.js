@@ -1,6 +1,6 @@
 import mapping from './mapping.js';
 
-const sitesURL = 'http://192.168.0.18/personal-homepage/sites/';
+const sitesURL = 'https://2000dobby.github.io/sites/';
 const timeoutAfter = 10000;
 
 let pageContainer = undefined;
