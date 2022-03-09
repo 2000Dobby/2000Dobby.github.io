@@ -1,5 +1,6 @@
+import mapping from './mapping.js';
+
 const sitesURL = 'http://192.168.0.18/personal-homepage/sites/';
-const fileType = 'html';
 const timeoutAfter = 10000;
 
 let pageContainer = undefined;
@@ -7,7 +8,7 @@ let popup = undefined;
 let popupBackground = undefined;
 let popupMessage = undefined;
 
-$(function() {
+$(() => {
     pageContainer = $('#page-container');
     popup = $('#popup');
     popupBackground = $('#popup-background');
@@ -20,7 +21,7 @@ $(function() {
     }
 });
 
-window.onscroll = function() {
+window.onscroll = () => {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         $('#top-back-button').show();
     } else {
@@ -33,7 +34,7 @@ $('#top-back-button').on('click', function() {
     document.documentElement.scrollTop = 0;
 });
 
-$('body').on('click', '.link-to', function () {
+$('body').on('click', '.link-to', function() {
     $('.navbar-link.active').removeClass('active');
 
     if ($(this).hasClass('.navbar-link')) {
@@ -49,7 +50,7 @@ $('#popup-dismiss').on('click', function() {
     popupBackground.removeClass('show');
 });
 
-$('.popup-show').on('click', function () { 
+$('.popup-show').on('click', function() {
     let message = $(this).data('popup-message');
     openPopup(message);
 });
@@ -61,7 +62,13 @@ function loadPageContent(sitePath) {
         return;
     }
 
-    hidePageContent(function() {
+    let siteMapping = mapping[sitePath];
+    if (typeof siteMapping === 'undefined') {
+        openPopup('Something went wrong, please try again later.');
+        return;
+    }
+
+    hidePageContent(() => {
         let xhttp = new XMLHttpRequest();
         let timeout = setTimeout(function() {
             xhttp.abort();
@@ -76,7 +83,7 @@ function loadPageContent(sitePath) {
             clearTimeout(timeout);
             if (this.status === 200) {
                 replacePageContent(this.responseText);
-                showPageContent();
+                showPageContent(() => setScrollable(siteMapping.scrollable));
             } else {
                 showPageContent();
                 if (this.status == 404) {
@@ -87,7 +94,7 @@ function loadPageContent(sitePath) {
             }
         };     
 
-        xhttp.open('GET', sitesURL + sitePath + '.' + fileType, true);
+        xhttp.open('GET', sitesURL + siteMapping.file, true);
         xhttp.send();
     });
 }
@@ -109,4 +116,12 @@ function openPopup(message) {
     popupMessage.html(message);
     popup.addClass('show');
     popupBackground.addClass('show');
+}
+
+function setScrollable(scrollable) {
+    if (scrollable) {
+        $('.wrapper-outer').css('height', 'auto');
+    } else {
+        $('.wrapper-outer').css('height', '100%');
+    }
 }
