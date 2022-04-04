@@ -1,4 +1,4 @@
-const sitesURL = /*'http://localhost/personal-homepage/sites/';//*/'https://2000dobby.github.io/sites/';
+const sitesURL = /*'http://localhost/personal-homepage/sites/';//*/'https://liev.dev/sites/';
 const timeoutAfter = 10000;
 
 let pageContainer = undefined;
